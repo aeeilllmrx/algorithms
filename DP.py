@@ -114,26 +114,32 @@ def knapsack(items, s, getpath=True):
   
     return maxval, path
             
-def bridges(lst):
+# word break problem - given a string and a dict of words, 
+# can the string be composed of just a subset of those words?
+def word_break(s, words):
+    
+    n = len(s)
+    
+    # initialize bools
+    poss = [False for i in range(n)]
+    
+    # for each endpoint, see if we can break down prefix string
+    # into valid segments
+    for i in range(n):
+        if s[:i+1] in words:
+            poss[i] = True
+        for j in range(i):
+            if poss[j] and s[j+1:i+1] in words:
+                poss[i] = True
+                break
+    return poss[-1]
 
-    pass
-
-def subset_sum():
-
-    pass
-
-def edit_distance():
-
-    pass
 
 def block_stacking():
 
     pass
 
-def longest_arithmetic_expression():
+def longest_arithmetic_progression():
 
     pass
 
-def bitonic_tour():
-
-    pass
