@@ -135,11 +135,37 @@ def word_break(s, words):
     return poss[-1]
 
 
-def block_stacking():
+# find the longest palindrome in a string
+def find_pal(s):
 
-    pass
+	letters = len(s)
+	grid = [[0 for i in range(letters)] for j in range(letters)]
 
-def longest_arithmetic_progression():
+	# all strings starting with i and ending with i are palindromes
+	max_len = 1
+	for i in range(letters):
+		grid[i][i] = 1
 
-    pass
+	# now starting at i and ending at i + 1
+	start = 0
+	for i in range(letters - 1):
+		if s[i] == s[i+1]:
+			grid[i][i+1] = 1
+			start = i
+			max_len = 2
+
+	# now check for substrings of length > 2
+	for k in range(3, letters + 1):
+		# fix the starting index
+		for i in range(letters-k+1):
+			# fix end index
+			j = i + k - 1
+			if grid[i+1][j-1] and s[i] == s[j]:
+				# update length, start + end if possible
+				grid[i][j] = 1
+				if k > max_len:
+					start = i
+					max_len = k
+
+	return s[start:start+max_len], max_len
 
